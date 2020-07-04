@@ -3065,7 +3065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: -3}
+  m_AnchoredPosition: {x: 172.56, y: -3}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1027087781
@@ -3089,11 +3089,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b0df30665dcc91e42a71d88bf9399d04, type: 3}
-    m_FontSize: 53
+    m_FontSize: 66
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 53
+    m_MaxSize: 66
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -11472,6 +11472,7 @@ GameObject:
   - component: {fileID: 2085622721}
   - component: {fileID: 2085622723}
   - component: {fileID: 2085622722}
+  - component: {fileID: 2085622724}
   m_Layer: 0
   m_Name: "\u6050\u9F8D"
   m_TagString: Untagged
@@ -11599,6 +11600,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2085622724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085622718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2195367b949353047bcc34783b0dbcad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  hp: 500
+  height: 100
+  coin: 0
+  soundJump: {fileID: 8300000, guid: 88b5bb57eacd14240869805953fb14d1, type: 3}
+  soundSlide: {fileID: 8300000, guid: e68b97232bc0726429bd4f02eb1b7275, type: 3}
+  soundBump: {fileID: 8300000, guid: 29afb7017670f4e4584bb8496420e483, type: 3}
+  dead: 0
 --- !u!1001 &2115026232
 PrefabInstance:
   m_ObjectHideFlags: 0
