@@ -3,7 +3,8 @@
 public class Player : MonoBehaviour
 {
 
-    #region
+    #region 欄位區域
+    /*
     // 命名規則
     // 1. 用有意義的名稱
     // 2. 不要使用數字開頭
@@ -24,7 +25,8 @@ public class Player : MonoBehaviour
     // 標題 Header
     // 提示 Tiletip
     // 範圍 Range
-    
+    */
+
     [Header("速度"),Tooltip("角色速度"),Range(10,1000)]
     public int speed = 50;
     [Header("血量"), Tooltip("角色血量"), Range(10, 1000)]
@@ -42,4 +44,65 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region 方法區域
+
+    /// <summary>
+    /// 跳躍功能:跳躍動畫，撥放音效與往上跳
+    /// </summary>
+    private void Jump()
+    {
+        print("跳躍");
+    }
+
+    /// <summary>
+    /// 滑行功能:滑行動畫，撥放音效，縮小碰撞範圍
+    /// </summary>
+    private void Slide()
+    {
+        print("滑行");
+    }
+
+    /// <summary>
+    /// 碰到障礙物受傷:扣血
+    /// </summary>
+    private void Hit()
+    {
+
+    }
+
+    /// <summary>
+    /// 吃金幣:金幣數量增加，更新介面，金幣音效
+    /// </summary>
+    private void EatCoin()
+    {
+
+    }
+
+    /// <summary>
+    /// 死亡:動畫，遊戲結束
+    /// </summary>
+    private void Dead()
+    {
+
+    }
+
+    #endregion
+
+    #region 事件區域
+
+    //開始Start
+    //初始化
+    private void Start()
+    {
+        Jump();
+    }
+
+    //更新Update
+    //60FPS
+    //更新，監聽鍵盤，滑鼠
+    private void Update()
+    {
+        Slide();
+    }
+    #endregion
 }
