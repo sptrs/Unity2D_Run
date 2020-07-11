@@ -27,11 +27,11 @@ public class Player : MonoBehaviour
     // 範圍 Range
     */
 
-    [Header("速度"),Tooltip("角色速度"),Range(10,1000)]
+    [Header("速度"), Tooltip("角色速度"), Range(1, 300)]
     public int speed = 50;
     [Header("血量"), Tooltip("角色血量"), Range(10, 1000)]
     public float hp = 500.0f;
-    [Header("高度"), Tooltip("角色跳高"), Range(10, 1000)]
+    [Header("高度"), Tooltip("角色跳高"), Range(10, 900)]
     public int height = 100;
     [Header("金幣數量"), Tooltip("角色吃了多少金幣")]
     public int coin;
@@ -39,22 +39,55 @@ public class Player : MonoBehaviour
     public AudioClip soundJump;
     public AudioClip soundSlide;
     public AudioClip soundBump;
-    [Header("角色是否死亡"),Tooltip("True 代表死亡，False 表示尚未死亡")]
+    [Header("角色是否死亡"), Tooltip("True 代表死亡，False 表示尚未死亡")]
     public bool dead;
-
     [Header("腳色動畫")]
     public Animator ani;
+    [Header("膠囊碰撞器")]
+    public CapsuleCollider2D cc2d;
+    [Header("剛體")]
+    public Rigidbody2D rig;
+
+    public bool isGround;
+
     #endregion
 
     #region 方法區域
+    /// <summary>
+    /// 移動
+    /// </summary>
+    private void Move()
+    {
+        // 如果(剛體.加速度.大小 < 10)
+        if (rig.velocity.magnitude < 10)
+        {
+            // 剛體.添加推力(二維向量)
+            rig.AddForce(new Vector2(speed, 0));
+        }
+    }
 
     /// <summary>
     /// 跳躍功能:跳躍動畫，撥放音效與往上跳
     /// </summary>
     private void Jump()
     {
-        bool key = Input.GetKey(KeyCode.Space);
-        ani.SetBool("跳躍觸發", key);
+        bool jump = Input.GetKey(KeyCode.Space);
+
+        ani.SetBool("跳躍觸發", !isGround);
+
+        // 搬家 Alt + 上，下
+        // 格式化 Ctrl + K D
+
+        // 如果在地板上
+        if (isGround)
+        {
+            if (jump)
+            {
+                isGround = false; //不再地板上
+                rig.AddForce(new Vector2(0, height)); // 剛體.添加推力(二維向量)
+            }
+
+        }
     }
 
     /// <summary>
@@ -62,8 +95,23 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Slide()
     {
-       bool key = Input.GetKey(KeyCode.LeftControl);
-        ani.SetBool("滑行觸發",key);
+        //布林值 = 輸入.取得按鍵(按鍵代碼列舉.按鍵)
+        bool key = Input.GetKey(KeyCode.LeftControl);
+
+        //動畫控制器代號
+        ani.SetBool("滑行觸發", key);
+
+        if (key) // 如果 玩家 按下 按鍵就縮小
+        {
+            cc2d.offset = new Vector2(0.5f, -0.8f); // 位移
+            cc2d.size = new Vector2(1.3f, 1.7f); //尺寸
+        }
+        // 否則 恢復
+        else
+        {
+            cc2d.offset = new Vector2(-1.0f, 0.06f); // 位移
+            cc2d.size = new Vector2(2.8f, 4.0f); //尺寸
+        }
     }
 
     /// <summary>
@@ -98,7 +146,7 @@ public class Player : MonoBehaviour
     //初始化
     private void Start()
     {
-        
+
     }
 
     //更新Update
@@ -107,7 +155,31 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Slide();
+    }
+
+
+    /// <summary>
+    /// 固定更新事件 : 一秒固定執行50次，只要有剛體就寫在這裡
+    /// </summary>
+    private void FixedUpdate()
+    {       
         Jump();
+        Move();
+    }
+
+    /// <summary>
+    /// 碰撞事件 : 碰到物件開始執行一次
+    /// </summary>
+    /// <param name="collision">碰到物件的碰撞資訊</param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 如果 碰到物件 的 名稱 等於 "地板"
+        if (collision.gameObject.name == "地板")
+        {
+            //是否在地板上 = 是
+            isGround = true;
+        }
     }
     #endregion
+
 }
