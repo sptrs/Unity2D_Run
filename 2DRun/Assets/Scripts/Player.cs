@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     [Header("角色是否死亡"),Tooltip("True 代表死亡，False 表示尚未死亡")]
     public bool dead;
 
+    [Header("腳色動畫")]
+    public Animator ani;
     #endregion
 
     #region 方法區域
@@ -51,15 +53,17 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Jump()
     {
-        print("跳躍");
+        bool key = Input.GetKey(KeyCode.Space);
+        ani.SetBool("跳躍觸發", key);
     }
 
     /// <summary>
-    /// 滑行功能:滑行動畫，撥放音效，縮小碰撞範圍
+    /// 滑行功能:滑行動畫，撥放音效，縮小碰撞範圍    
     /// </summary>
     private void Slide()
     {
-        print("滑行");
+       bool key = Input.GetKey(KeyCode.LeftControl);
+        ani.SetBool("滑行觸發",key);
     }
 
     /// <summary>
@@ -94,7 +98,7 @@ public class Player : MonoBehaviour
     //初始化
     private void Start()
     {
-        Jump();
+        
     }
 
     //更新Update
@@ -103,6 +107,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Slide();
+        Jump();
     }
     #endregion
 }
