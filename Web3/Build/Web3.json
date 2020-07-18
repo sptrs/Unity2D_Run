@@ -1,0 +1,16 @@
+{
+"companyName": "Yu",
+"productName": "Yu | 恐龍路跑",
+"productVersion": "0.1",
+"dataUrl": "Web3.data.unityweb",
+"wasmCodeUrl": "Web3.wasm.code.unityweb",
+"wasmFrameworkUrl": "Web3.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#002604",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.0f1"
+}

@@ -1,5 +1,12 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp.dll:
+    - CameraControl
+    - Learn1
+    - Learn2_NonStatic
+    - LearnLerf
+    - Player
+    - SceneControl
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
@@ -13,16 +20,122 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Image
+    - UnityEngine.UI.Shadow
+    - UnityEngine.UI.Text
   sceneClasses:
+    "Assets/\u5834\u666F/\u904A\u6232\u5834\u666F.unity":
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
+    - Class: 61
+      Script: {instanceID: 0}
+    - Class: 62
+      Script: {instanceID: 0}
+    - Class: 66
+      Script: {instanceID: 0}
+    - Class: 70
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 588}
+    - Class: 114
+      Script: {instanceID: 11172}
+    - Class: 114
+      Script: {instanceID: 11358}
+    - Class: 114
+      Script: {instanceID: 11436}
+    - Class: 114
+      Script: {instanceID: 11464}
+    - Class: 114
+      Script: {instanceID: 11518}
+    - Class: 114
+      Script: {instanceID: 11968}
+    - Class: 114
+      Script: {instanceID: 12180}
+    - Class: 114
+      Script: {instanceID: 12636}
+    - Class: 114
+      Script: {instanceID: 12880}
+    - Class: 114
+      Script: {instanceID: 13462}
+    - Class: 114
+      Script: {instanceID: 13640}
+    - Class: 114
+      Script: {instanceID: 13848}
+    - Class: 114
+      Script: {instanceID: 14252}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 251
+      Script: {instanceID: 0}
+    - Class: 19719996
+      Script: {instanceID: 0}
+    - Class: 156049354
+      Script: {instanceID: 0}
+    - Class: 483693784
+      Script: {instanceID: 0}
+    - Class: 1839735485
+      Script: {instanceID: 0}
     "Assets/\u5834\u666F/\u9078\u55AE.unity":
     - Class: 1
       Script: {instanceID: 0}
@@ -36,15 +149,43 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 58
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
     - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11172}
+    - Class: 114
+      Script: {instanceID: 11464}
+    - Class: 114
+      Script: {instanceID: 11518}
+    - Class: 114
+      Script: {instanceID: 12060}
+    - Class: 114
+      Script: {instanceID: 12180}
+    - Class: 114
+      Script: {instanceID: 12636}
+    - Class: 114
+      Script: {instanceID: 12880}
+    - Class: 114
+      Script: {instanceID: 13640}
+    - Class: 114
+      Script: {instanceID: 14252}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -53,6 +194,12 @@ ScriptsOnlyBuild:
     - Class: 212
       Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -93,6 +240,12 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
+      Hash: a742d7598847c66336b47c2efb22ea11
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LearnLerf
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -103,6 +256,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Learn1
   - hash:
       serializedVersion: 2
       Hash: aeb62f729c52c814dec86c47dcac1471
@@ -231,6 +390,12 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 777246adcf4714857ad3a784e27df6fa
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Learn2_NonStatic
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -307,6 +472,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.U2D.Animation
     className: SpriteSkinEntity
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SceneControl
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -405,6 +576,18 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 65f2d96ed48fb6950cccae854b050e70
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Learnif
+  - hash:
+      serializedVersion: 2
+      Hash: 412a103733b392108ab317fdb4f48a53
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Player
+  - hash:
+      serializedVersion: 2
       Hash: 8001a5f7502aab37e42206da015e6914
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -427,6 +610,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
+  - hash:
+      serializedVersion: 2
+      Hash: 64bb4949e87060d217d4c26a1b7e7bcf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraControl
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -538,4 +727,5 @@ ScriptsOnlyBuild:
   platform: 20
   scenePathNames:
   - "Assets/\u5834\u666F/\u9078\u55AE.unity"
-  playerPath: C:/Users/USER/Desktop/Unity2Dparking/unity_2020_0606/Web
+  - "Assets/\u5834\u666F/\u904A\u6232\u5834\u666F.unity"
+  playerPath: C:/Users/USER/Desktop/unity_2020_0606/Web3
