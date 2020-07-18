@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     public AudioClip soundEatCoin;
     [Header("角色是否死亡"), Tooltip("True 代表死亡，False 表示尚未死亡")]
     public bool dead;
-    [Header("腳色動畫")]
+    [Header("動畫觸發器")]
     public Animator ani;
     [Header("膠囊碰撞器")]
     public CapsuleCollider2D cc2d;
@@ -62,6 +62,12 @@ public class Player : MonoBehaviour
     public bool isGround;
     [Header("音效來源")]
     public AudioSource aud;
+    [Header("結束畫面")]
+    public GameObject final;
+    [Header("過關標題")]
+    public Text TextTitle;
+    [Header("目前金幣數量")]
+    public Text TextCurrent;
 
     private float hpmax;
     #endregion
@@ -113,6 +119,8 @@ public class Player : MonoBehaviour
         //動畫控制器代號
         ani.SetBool("滑行觸發", key);
 
+        if (Input.GetKeyDown(KeyCode.LeftControl)) aud.PlayOneShot(soundSlide);
+
         if (key) // 如果 玩家 按下 按鍵就縮小
         {
             cc2d.offset = new Vector2(0.5f, -0.8f); // 位移
@@ -133,13 +141,11 @@ public class Player : MonoBehaviour
     private void Hit(Collider2D collision)
     {
         hp -= 100; // 受傷-100血
-
         Destroy(collision.gameObject); // 刪掉障礙物
-
         aud.PlayOneShot(soundBump);
-
         imghp.fillAmount = hp / hpmax; // 血條.填滿長度 = 血量 / 血量最大值
 
+        if (hp <= 0) Dead();
     }
 
     /// <summary>
@@ -151,6 +157,7 @@ public class Player : MonoBehaviour
         Destroy(collision.gameObject);  // 刪除 (碰撞物件.遊戲物件)
         TextCoin.text = "金幣 : " + coin; // 金幣.文字 = " " + 金幣
         aud.PlayOneShot(soundEatCoin);
+
     }
 
     /// <summary>
@@ -158,7 +165,27 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Dead()
     {
+        if (dead) return;
 
+        speed = 0;
+        dead = true;
+        ani.SetTrigger("死亡觸發");
+
+        final.SetActive(true);    // 啟動設定(是/否)
+        TextTitle.text = "不幸你失敗了~";
+        TextCurrent.text = "本次的金幣數量 : " + coin;
+    }
+
+    /// <summary>
+    /// 過關
+    /// </summary>
+    private void Pass()
+    {
+        final.SetActive(true);
+        TextTitle.text = "恭喜過關了!!";
+        TextCurrent.text = "本次的金幣數量 : " + coin;
+        speed = 0;
+        rig.velocity = Vector3.zero;
     }
 
     #endregion
@@ -177,7 +204,11 @@ public class Player : MonoBehaviour
     //更新，監聽鍵盤，滑鼠
     private void Update()
     {
+        if (dead) return;
+
         Slide();
+
+        if (transform.position.y <= -6) Dead();
     }
 
 
@@ -185,7 +216,8 @@ public class Player : MonoBehaviour
     /// 固定更新事件 : 一秒固定執行50次，只要有剛體就寫在這裡
     /// </summary>
     private void FixedUpdate()
-    {       
+    {
+        if (dead) return;
         Jump();
         Move();
     }
@@ -202,8 +234,8 @@ public class Player : MonoBehaviour
             isGround = true; // 在地板上
         }
 
-        // 如果 碰到物件 的 名稱 等於 "地板" 並且 玩家的 Y+2 > 懸空地板的 Y
-        if (collision.gameObject.name == "懸空地板" && transform.position.y + 1 > collision.gameObject.transform.position.y )
+        // 如果 碰到物件 的 名稱 等於 "地板" 
+        if (collision.gameObject.name == "懸空地板" )
         {
             isGround = true;  // 在地板上
         }
@@ -215,21 +247,19 @@ public class Player : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "金幣")  // 如果 (碰撞物件.標籤) == ???
-        {
-            EatCoin(collision);
-        }
+        if (collision.tag == "金幣")  // 如果 (碰撞物件.標籤) == ???      
+            EatCoin(collision);        
 
         if(collision.tag == "障礙物")
-        {
             Hit(collision);
-        }
 
         if(collision.tag == "尖刺")
-        {
             Hit(collision);
-        }
+
+        if (collision.name == "傳送門")
+            Pass();
     }
     #endregion
 
 }
+
