@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -25,7 +26,12 @@ public class Player : MonoBehaviour
     // 標題 Header
     // 提示 Tiletip
     // 範圍 Range
+    
+    // 搬家 Alt + 上，下
+    // 格式化 Ctrl + K D
     */
+
+
 
     [Header("速度"), Tooltip("角色速度"), Range(1, 300)]
     public int speed = 50;
@@ -39,6 +45,7 @@ public class Player : MonoBehaviour
     public AudioClip soundJump;
     public AudioClip soundSlide;
     public AudioClip soundBump;
+    public AudioClip soundEatCoin;
     [Header("角色是否死亡"), Tooltip("True 代表死亡，False 表示尚未死亡")]
     public bool dead;
     [Header("腳色動畫")]
@@ -47,9 +54,16 @@ public class Player : MonoBehaviour
     public CapsuleCollider2D cc2d;
     [Header("剛體")]
     public Rigidbody2D rig;
-
+    [Header("金幣數量")]
+    public Text TextCoin;
+    [Header("血條")]
+    public Image imghp;
+    [Header("踩地")]
     public bool isGround;
+    [Header("音效來源")]
+    public AudioSource aud;
 
+    private float hpmax;
     #endregion
 
     #region 方法區域
@@ -58,8 +72,8 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        // 如果(剛體.加速度.大小 < 10)
-        if (rig.velocity.magnitude < 10)
+        // 如果(剛體.加速度.大小 < 8)
+        if (rig.velocity.magnitude < 4)
         {
             // 剛體.添加推力(二維向量)
             rig.AddForce(new Vector2(speed, 0));
@@ -72,22 +86,20 @@ public class Player : MonoBehaviour
     private void Jump()
     {
         bool jump = Input.GetKey(KeyCode.Space);
+        
 
         ani.SetBool("跳躍觸發", !isGround);
 
-        // 搬家 Alt + 上，下
-        // 格式化 Ctrl + K D
-
-        // 如果在地板上
-        if (isGround)
+        if (isGround)  // 如果在地板上
         {
             if (jump)
             {
                 isGround = false; //不再地板上
                 rig.AddForce(new Vector2(0, height)); // 剛體.添加推力(二維向量)
+                aud.PlayOneShot(soundJump);
             }
-
         }
+
     }
 
     /// <summary>
@@ -105,6 +117,7 @@ public class Player : MonoBehaviour
         {
             cc2d.offset = new Vector2(0.5f, -0.8f); // 位移
             cc2d.size = new Vector2(1.3f, 1.7f); //尺寸
+            aud.PlayOneShot(soundSlide);
         }
         // 否則 恢復
         else
@@ -117,17 +130,27 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 碰到障礙物受傷:扣血
     /// </summary>
-    private void Hit()
+    private void Hit(Collider2D collision)
     {
+        hp -= 100; // 受傷-100血
+
+        Destroy(collision.gameObject); // 刪掉障礙物
+
+        aud.PlayOneShot(soundBump);
+
+        imghp.fillAmount = hp / hpmax; // 血條.填滿長度 = 血量 / 血量最大值
 
     }
 
     /// <summary>
     /// 吃金幣:金幣數量增加，更新介面，金幣音效
     /// </summary>
-    private void EatCoin()
+    private void EatCoin(Collider2D collision)
     {
-
+        coin++;  //數量 + 1
+        Destroy(collision.gameObject);  // 刪除 (碰撞物件.遊戲物件)
+        TextCoin.text = "金幣 : " + coin; // 金幣.文字 = " " + 金幣
+        aud.PlayOneShot(soundEatCoin);
     }
 
     /// <summary>
@@ -142,11 +165,11 @@ public class Player : MonoBehaviour
 
     #region 事件區域
 
-    //開始Start
+    //開始遊戲時觸發
     //初始化
     private void Start()
     {
-
+        hpmax = hp;  
     }
 
     //更新Update
@@ -168,7 +191,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 碰撞事件 : 碰到物件開始執行一次
+    /// 碰撞事件 : 碰到沒有勾選 Is Trigger 的物件開始執行一次
     /// </summary>
     /// <param name="collision">碰到物件的碰撞資訊</param>
     private void OnCollisionEnter2D(Collision2D collision)
@@ -176,8 +199,35 @@ public class Player : MonoBehaviour
         // 如果 碰到物件 的 名稱 等於 "地板"
         if (collision.gameObject.name == "地板")
         {
-            //是否在地板上 = 是
-            isGround = true;
+            isGround = true; // 在地板上
+        }
+
+        // 如果 碰到物件 的 名稱 等於 "地板" 並且 玩家的 Y+2 > 懸空地板的 Y
+        if (collision.gameObject.name == "懸空地板" && transform.position.y + 1 > collision.gameObject.transform.position.y )
+        {
+            isGround = true;  // 在地板上
+        }
+    }
+
+    /// <summary>
+    /// 觸發事件 : 碰到勾選 Is Trigger 的物件執行一次
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "金幣")  // 如果 (碰撞物件.標籤) == ???
+        {
+            EatCoin(collision);
+        }
+
+        if(collision.tag == "障礙物")
+        {
+            Hit(collision);
+        }
+
+        if(collision.tag == "尖刺")
+        {
+            Hit(collision);
         }
     }
     #endregion
